@@ -6,8 +6,6 @@
  */
 
 
-
-
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -15,18 +13,30 @@
 #include <stdlib.h>
 
 
+static const std::string ones[20] = {	
+	"zero", "one", "two", "three", "four", "five",
+	 "six", "seven", "eight", "nine", "ten", "eleven",
+	 "tweleve", "thirteen", "fourteen", "fifteen", "sixteen",
+	 "seventeen", "eighteen", "nineteen"
+	};
+
+
+static const std::string tens[8] = { "twenty", "thirty", "fourty", "fifty", "sixty",
+	 "seventy", "eighty", "ninety"
+	};
 
 void effect() {
+
    	system("color 05");
 	std::cout <<"\n\n\n\t\t $$           $$    $$$$$     $$         $$$$$     $$$$$      $$         $$     $$$$$\n";
 	std::cout <<"\t\t  $$    $    $$     $$        $$        $$        $$   $$     $$ $$   $$ $$     $$\n";
-     std::cout <<"\t\t   $$  $$$  $$      $$$$$     $$        $$        $$   $$     $$   $$$   $$     $$$$$\n";
-     std::cout <<"\t\t    $$$   $$$       $$        $$        $$        $$   $$     $$    $    $$     $$\n";
+    	std::cout <<"\t\t   $$  $$$  $$      $$$$$     $$        $$        $$   $$     $$   $$$   $$     $$$$$\n";
+    	std::cout <<"\t\t    $$$   $$$       $$        $$        $$        $$   $$     $$    $    $$     $$\n";
 	std::cout <<"\t\t     $$   $$        $$$$$     $$$$$$     $$$$$     $$$$$      $$         $$     $$$$$\n";
 	std::cout <<"\n\n\n\tThis is a simple number to word conversion system\n " << std::endl;
 	Sleep(3000);
 	system("cls");
-	system("color 07");
+	//system("color 07");
 	std::cout << std::endl;
 }
 
@@ -79,65 +89,28 @@ int main () {
 	std::fstream history;
 	history.open("history.txt", std::ios::app);
 	
-	if (history.fail())
-		std::cerr << "unaible to open the histrory.txt for history record method" << std::endl;
+	if (history.fail()) std::cerr << "unaible to open the history.txt for history record method" << std::endl;
 	
-	std::string ones[20] = {	"zero",
-					"one",
-					"two",
-					"three",
-					"four",
-					"five",
-					"six",
-					"seven",
-					"eight",
-					"nine",
-					"ten",
-					"eleven",
-					"tweleve",
-					"thirteen",
-					"fourteen",
-					"fifteen",
-					"sixteen",
-					"seventeen",
-					"eighteen",
-					"nineteen"};
-	for (int i = 0; i < 20; i++) {
 	
-		history << ones[i];
-	}
-	std::string tens[8] = { "twenty",
-		            "thirty",
-				  "fourty",
-				  "fifty",
-				  "sixty",
-				  "seventy",
-				  "eighty",
-				  "ninety"};
-	for (int i = 0; i < 8; i++) {
-	
-		history << tens[i];
-	}
+	for (int i = 0; i < 20; i++)  history << ones[i];
+
+	for (int i = 0; i < 8; i++) history << tens[i];
 	top:
-	std::cout << "enter the number:" << std::endl;
+	std::cout << "enter the number:\n" << std::endl;
 	std::cin >> num;
 	std::string str;
-	if (num < 0) {
 
+	if (num < 0) {
 		str = "Negative ";
 		num = -(num);
 	}
 	
-	else 
-		str = " ";
+	//else if (num == 0) str = "0";
+	else str = " ";
 	
-	if(num <= -1000000 || num >= 1000000) {
-		std::cout << "the number must be between -100000 to 100000:  " << std::endl;
-	}
+	if(num <= -1000000 || num >= 1000000) std::cout << "the number must be between -100000 to 100000:  " << std::endl;
 	
-	else if (num >= 1 && num <= 19) {
-		std::cout << "the number you entred is: " << str << ones[num] << std::endl;
-	}
+	else if (num >= 0 && num <= 19) std::cout << "the number you entred is: " << str << ones[num] << std::endl;
 	
 	else if(num >= 20 && num <= 99){
 		leftdigit = num / 10;
@@ -154,12 +127,8 @@ int main () {
 		midledigit = (num % 100) / 10; //std::cout << midledigit << "\n";
 		rightdigit = num % 10;  //std::cout << rightdigit << "\n";
 		std::cout << "the number you have entered is: " << str << ones[leftdigit] << " hundred ";
-		if (midledigit == 1){
-		
-			std::cout << ones[midledigit + 10];
-		}
+		if (midledigit == 1) std::cout << ones[midledigit + 10];
 		else {
-			
 			if (midledigit != 0) std::cout << tens[midledigit - 2];
 			if (rightdigit != 0) std::cout << " " << ones[rightdigit] << std::endl;
 		}
@@ -177,7 +146,6 @@ int main () {
 		if (thirdDigit == 1)
 			std::cout << ones[thirdDigit + 10];
 		else {
-		
 			if (thirdDigit != 0 ) std::cout<< tens[thirdDigit - 2];
 			if (rightdigit != 0) std::cout  << " " << ones[rightdigit] << std::endl;
 		}
@@ -194,12 +162,10 @@ int main () {
 		fourthDigit = temp / 10;
 		rightdigit = temp % 10;
 		if (leftdigit != 1) {
-		
 			std::cout << "the number you have entered is: " << str << tens[leftdigit - 2] << " "; 
 			if (secondDigit != 0) std::cout << ones[secondDigit];
 		}
 		else if (leftdigit == 1) {
-		
 			std::cout << "the number you have entered is: " << str << ones[leftdigit + (secondDigit + 9)] << " "; 
 		}
 		std::cout << " thousand ";
@@ -214,7 +180,6 @@ int main () {
 	}
 	
 	else if (num >= 100000 && num <= 999999) {
-		
 		leftdigit = num / 100000;
 		temp = num % 100000;
 		secondDigit = temp / 10000;
@@ -228,23 +193,15 @@ int main () {
 		
 		std::cout << "the number you have entered is: " << str << ones[leftdigit] << " hundred ";
 		
-		if (secondDigit == 1) {
-			std::cout << ones[secondDigit + 10] << " ";
-		}
+		if (secondDigit == 1) std::cout << ones[secondDigit + 10] << " ";
 		else {
-			
 			if (secondDigit != 0) std::cout << tens[secondDigit - 2] << " ";
 			else if (secondDigit == 0) std::cout << " thousand ";
 		}
-		if (secondDigit != 1) {
-			if (thirdDigit != 0) std::cout << ones[thirdDigit] << " thousand ";
-		}
+		if (secondDigit != 1) if (thirdDigit != 0) std::cout << ones[thirdDigit] << " thousand ";
 		else std::cout << " thousand ";
 		if (fourthDigit != 0) std::cout << ones[fourthDigit] << " hundred ";
-		if (fifthDigit == 1) {
-		
-			std::cout << ones[fifthDigit + 10];
-		}
+		if (fifthDigit == 1) std::cout << ones[fifthDigit + 10];
 		else {
 			if (fifthDigit != 0) std::cout << tens[fifthDigit - 2] << " ";
 			if (rightdigit != 0) std::cout << ones[rightdigit];
@@ -265,4 +222,5 @@ int main () {
 		else { std::cout << "\nwe coundn't understand you try again[y/n]:"; goto head; }
 		
 	}
+	system("pause");
 }
