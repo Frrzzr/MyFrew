@@ -193,7 +193,7 @@ int main () {
 		
 		std::cout << "the number you have entered is: " << str << ones[leftdigit] << " hundred ";
 		
-		if (secondDigit == 1) std::cout << ones[secondDigit + 10] << " ";
+		if (secondDigit == 1) std::cout << ones[secondDigit + 10 + thirdDigit - 1] << " thousand ";
 		else {
 			if (secondDigit != 0) std::cout << tens[secondDigit - 2] << " ";
 			else if (secondDigit == 0) std::cout << " thousand ";
